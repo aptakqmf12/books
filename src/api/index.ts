@@ -9,6 +9,8 @@ const client = axios.create({
 
 interface BookRequest {
   query: string;
+  page?: number; // 1~50 *1
+  size?: number; // 1~50 *10
 }
 
 export const getBookData = async (params: BookRequest) => {

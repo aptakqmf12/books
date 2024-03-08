@@ -29,4 +29,15 @@ export const GlobalStyle = createGlobalStyle`
     align-items: center;
    }
   }
+
+  button{
+    background-color: transparent;
+    outline:none;
+    border:none;
+    cursor: pointer;
+    padding:0;
+  }
+  a{
+    text-decoration: none;  cursor: pointer;
+  }
 `;
