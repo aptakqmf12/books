@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { BookInfo, ColorType } from "@type/index";
 import Button from "./common/button";
 import Typography, { TypoType } from "./common/typography";
@@ -10,27 +9,19 @@ interface BookCardDetailProps {
   book: BookInfo;
   openDetail: boolean;
   setOpenDetail: (b: boolean) => void;
-  isBookMark: boolean;
 }
 
 export default function BookCardDetail({
   book,
   openDetail,
   setOpenDetail,
-  isBookMark,
 }: BookCardDetailProps) {
-  const { thumbnail, authors, price, sale_price, title, contents, url } = book;
-
-  const [isBookMarkDetail, setIsBookMarkDetail] = useState(false);
-
-  useEffect(() => {
-    setIsBookMarkDetail(isBookMark);
-  }, [isBookMark]);
+  const { authors, price, sale_price, title, contents, url } = book;
 
   return (
     <StyledBookCardDetail>
       <div className="left flex_row">
-        <BookMarkImage thumbnail={thumbnail} isBookMark={isBookMarkDetail} />
+        <BookMarkImage {...book} />
 
         <div>
           <div>

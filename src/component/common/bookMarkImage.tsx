@@ -1,21 +1,20 @@
 import styled from "styled-components";
+import { useBookStore } from "@store/book";
 import HeartIcon from "@component/icon/heart";
+import { BookInfo } from "@type/index";
 
-interface BookMarkImageProps {
-  thumbnail: string;
-  isBookMark: boolean;
-  setIsBookMark?: (b: boolean) => void;
-}
+export default function BookMarkImage(book: BookInfo) {
+  const { thumbnail, isbn } = book;
+  const { markedBookList, addBookMark, removeBookMark } = useBookStore();
 
-export default function BookMarkImage({
-  thumbnail,
-  isBookMark,
-  setIsBookMark,
-}: BookMarkImageProps) {
+  const isMarked = markedBookList.some((book) => book.isbn === isbn);
+
   const handleToggleBookmark = () => {
-    if (!setIsBookMark) return;
-
-    setIsBookMark(!isBookMark);
+    if (isMarked) {
+      removeBookMark(isbn);
+    } else {
+      addBookMark(book);
+    }
   };
 
   return (
@@ -23,7 +22,7 @@ export default function BookMarkImage({
       <img src={thumbnail} />
 
       <button className="bookmark" onClick={handleToggleBookmark}>
-        <HeartIcon type={isBookMark ? "fill" : "outline"} />
+        <HeartIcon type={isMarked ? "fill" : "outline"} />
       </button>
     </StyledImageBox>
   );

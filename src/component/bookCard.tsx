@@ -9,10 +9,9 @@ import BookMarkImage from "./common/bookMarkImage";
 import BookCardDetail from "./bookCardDetail";
 
 export default function BookCard(book: BookInfo) {
-  const { thumbnail, authors, price, title, url } = book;
+  const { authors, price, title, url } = book;
 
   const [openDetail, setOpenDetail] = useState(false);
-  const [isBookMark, setIsBookMark] = useState(false);
 
   const handleToggleDetail = () => {
     setOpenDetail(!openDetail);
@@ -22,11 +21,7 @@ export default function BookCard(book: BookInfo) {
     <StyledCardContainer>
       <StyledCardWrap>
         <div className="flex_row" style={{ gap: 48 }}>
-          <BookMarkImage
-            thumbnail={thumbnail}
-            isBookMark={isBookMark}
-            setIsBookMark={setIsBookMark}
-          />
+          <BookMarkImage {...book} />
 
           <p className="flex_row" style={{ gap: 16 }}>
             <Typography type={TypoType.TITLE3}>{title}</Typography>
@@ -64,7 +59,6 @@ export default function BookCard(book: BookInfo) {
           book={book}
           openDetail={openDetail}
           setOpenDetail={setOpenDetail}
-          isBookMark={isBookMark}
         />
       )}
     </StyledCardContainer>
