@@ -12,6 +12,8 @@ const client = new QueryClient({
       refetchIntervalInBackground: false,
       refetchInterval: false,
       refetchOnMount: true,
+      staleTime: 3000,
+      gcTime: 5000,
     },
   },
 });

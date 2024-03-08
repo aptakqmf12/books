@@ -19,6 +19,8 @@ export default function BookList({ list }: BookListProps) {
 }
 
 const StyledBookUl = styled.ul`
+  height: 1100px;
+  overflow-y: auto;
   li {
     display: flex;
     flex-direction: column;
