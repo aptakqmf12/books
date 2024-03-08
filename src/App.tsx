@@ -27,6 +27,7 @@ function App() {
     queryFn: () =>
       getBookData({ query: searchText || " ", page: currentPage, size: 10 }),
     enabled: false,
+    placeholderData: (previousData, previousQuery) => previousData,
   });
 
   const handleRequestBooks = () => {};
