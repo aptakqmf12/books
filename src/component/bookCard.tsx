@@ -3,24 +3,30 @@ import { BookInfo, ColorType } from "@type/index";
 import styled from "styled-components";
 import Button from "./common/button";
 import ArrowIcon from "./icon/arrow";
+
 import Typography, { TypoType } from "./common/typography";
+import BookMarkImage from "./common/bookMarkImage";
 import BookCardDetail from "./bookCardDetail";
 
 export default function BookCard(book: BookInfo) {
-  const { thumbnail, authors, price, title } = book;
+  const { thumbnail, authors, price, title, url } = book;
 
   const [openDetail, setOpenDetail] = useState(false);
+  const [isBookMark, setIsBookMark] = useState(false);
 
   const handleToggleDetail = () => {
     setOpenDetail(!openDetail);
   };
+
   return (
     <StyledCardContainer>
       <StyledCardWrap>
         <div className="flex_row" style={{ gap: 48 }}>
-          <div className="image_box">
-            <img src={thumbnail} />
-          </div>
+          <BookMarkImage
+            thumbnail={thumbnail}
+            isBookMark={isBookMark}
+            setIsBookMark={setIsBookMark}
+          />
 
           <p className="flex_row" style={{ gap: 16 }}>
             <Typography type={TypoType.TITLE3}>{title}</Typography>
@@ -37,7 +43,7 @@ export default function BookCard(book: BookInfo) {
           </Typography>
 
           <div className="flex_row" style={{ gap: 8 }}>
-            <Button type="fill" size="l">
+            <Button type="fill" size="l" onClick={() => window.open(url)}>
               구매하기
             </Button>
 
@@ -58,6 +64,7 @@ export default function BookCard(book: BookInfo) {
           book={book}
           openDetail={openDetail}
           setOpenDetail={setOpenDetail}
+          isBookMark={isBookMark}
         />
       )}
     </StyledCardContainer>
@@ -72,13 +79,5 @@ const StyledCardWrap = styled.div`
   align-items: center;
 
   height: 100px;
-
-  .image_box {
-    width: 48px;
-    height: 68px;
-    object-fit: cover;
-    img {
-      width: 100%;
-    }
-  }
+  padding: 0 16px;
 `;

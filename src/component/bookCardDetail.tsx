@@ -1,28 +1,36 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { BookInfo, ColorType } from "@type/index";
 import Button from "./common/button";
 import Typography, { TypoType } from "./common/typography";
 import styled from "styled-components";
 import ArrowIcon from "./icon/arrow";
+import BookMarkImage from "./common/bookMarkImage";
 
 interface BookCardDetailProps {
   book: BookInfo;
   openDetail: boolean;
   setOpenDetail: (b: boolean) => void;
+  isBookMark: boolean;
 }
 
 export default function BookCardDetail({
   book,
   openDetail,
   setOpenDetail,
+  isBookMark,
 }: BookCardDetailProps) {
-  const { thumbnail, authors, price, sale_price, title, contents } = book;
+  const { thumbnail, authors, price, sale_price, title, contents, url } = book;
+
+  const [isBookMarkDetail, setIsBookMarkDetail] = useState(false);
+
+  useEffect(() => {
+    setIsBookMarkDetail(isBookMark);
+  }, [isBookMark]);
+
   return (
     <StyledBookCardDetail>
       <div className="left flex_row">
-        <div>
-          <img src={thumbnail} />
-        </div>
+        <BookMarkImage thumbnail={thumbnail} isBookMark={isBookMarkDetail} />
 
         <div>
           <div>
@@ -51,11 +59,12 @@ export default function BookCardDetail({
           </Button>
         </div>
 
-        <div>
+        <div className="right_bottom_info">
           <div>
             <Typography color={ColorType.TEXT_SUBTITLE}>원가</Typography>
             <Typography>{price.toLocaleString()}원</Typography>
           </div>
+
           {sale_price && (
             <div>
               <Typography color={ColorType.TEXT_SUBTITLE}>할인가</Typography>
@@ -65,7 +74,7 @@ export default function BookCardDetail({
             </div>
           )}
 
-          <Button size="l" width={240}>
+          <Button size="l" width={240} onClick={() => window.open(url)}>
             구매하기
           </Button>
         </div>
@@ -78,12 +87,20 @@ const StyledBookCardDetail = styled.div`
   display: flex;
   justify-content: space-between;
   height: 100%;
+  padding: 26px 16px 40px 16px;
 
   .left {
   }
   .right {
     display: flex;
+    align-items: flex-end;
     flex-direction: column;
     justify-content: space-between;
+
+    &_bottom_info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
   }
 `;
