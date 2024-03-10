@@ -6,6 +6,7 @@ interface ButtonProps {
   type?: "fill" | "outlined" | "gray";
   size?: "s" | "l";
   width?: number;
+  fullWidth?: boolean;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
   icon?: ReactNode;
 }
@@ -15,12 +16,13 @@ export default function Button({
   type = "fill",
   size = "s",
   width,
+  fullWidth,
   onClick,
   icon,
 }: ButtonProps) {
-  const props = { type, size, width, onClick };
+  const attr = { type, size, width, fullWidth };
   return (
-    <StyledButton {...props}>
+    <StyledButton {...attr} onClick={onClick}>
       <span>{children}</span>
 
       {icon && <span>{icon}</span>}
@@ -28,11 +30,9 @@ export default function Button({
   );
 }
 
-const StyledButton = styled.button<{
-  type: "fill" | "outlined" | "gray";
-  size: "s" | "l";
-  width?: number;
-}>`
+const StyledButton = styled.button<
+  Omit<ButtonProps, "children" | "onClick" | "icon">
+>`
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -41,7 +41,7 @@ const StyledButton = styled.button<{
   cursor: pointer;
   font-weight: 500;
   gap: 4px;
-  width: ${(p) => p.width}px;
+  width: ${(p) => (p.fullWidth ? "100%" : p.width + "px")};
 
   ${(p) =>
     p.size === "s"

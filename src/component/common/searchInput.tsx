@@ -1,18 +1,22 @@
-import { ChangeEvent, CSSProperties } from "react";
+import { ChangeEvent, CSSProperties, RefObject } from "react";
 import styled from "styled-components";
 
 interface SearchInputProps {
-  value: string;
-  placeholder?: string;
+  type?: React.InputHTMLAttributes<HTMLInputElement>["type"];
+  value?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  targetRef: RefObject<HTMLInputElement>;
+  placeholder?: string;
   style?: CSSProperties;
   fullWidth?: boolean;
 }
 
 export default function SearchInput({
+  type = "text",
   value,
-  placeholder,
   onChange,
+  targetRef,
+  placeholder,
   fullWidth = false,
 }: SearchInputProps) {
   return (
@@ -30,7 +34,13 @@ export default function SearchInput({
         />
       </svg>
 
-      <input value={value} onChange={onChange} placeholder={placeholder} />
+      <input
+        type={type}
+        value={value}
+        onChange={onChange}
+        ref={targetRef}
+        placeholder={placeholder}
+      />
     </StyledLabel>
   );
 }
