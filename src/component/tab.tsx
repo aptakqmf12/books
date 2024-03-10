@@ -1,17 +1,15 @@
-import { useState } from "react";
+import { useContext } from "react";
 import Typography, { TypoType } from "./common/typography";
 import styled from "styled-components";
-
-type TabType = "search" | "bookmark";
-
+import type { TabType } from "@type/index";
+import { TabContext } from "../App";
 const TAB_DATA = [
   { label: "도서 검색", value: "search" },
   { label: "내가 찜한 책", value: "bookmark" },
 ];
 
 export default function Tab() {
-  const [tab, setTab] = useState<TabType>("search");
-
+  const { tab, setTab } = useContext(TabContext);
   const handleTabChange = (value: TabType) => {
     setTab(value);
   };
