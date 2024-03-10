@@ -18,16 +18,22 @@ export default function BookCard(book: BookInfo) {
   };
 
   return (
-    <StyledCardContainer>
+    <>
       <StyledCardWrap>
-        <div className="flex_row" style={{ gap: 48 }}>
+        <div className="flex_row" style={{ gap: 48, maxWidth: 500 }}>
           <BookMarkImage {...book} />
 
           <p className="flex_row" style={{ gap: 16 }}>
-            <Typography type={TypoType.TITLE3}>{title}</Typography>
+            <Typography maxWidth={300} type={TypoType.TITLE3}>
+              {title}
+            </Typography>
 
-            <Typography type={TypoType.BODY2} color={ColorType.TEXT_SECONDARY}>
-              {authors[0]}
+            <Typography
+              maxWidth={100}
+              type={TypoType.BODY2}
+              color={ColorType.TEXT_SECONDARY}
+            >
+              {authors.join(",")}
             </Typography>
           </p>
         </div>
@@ -61,11 +67,9 @@ export default function BookCard(book: BookInfo) {
           setOpenDetail={setOpenDetail}
         />
       )}
-    </StyledCardContainer>
+    </>
   );
 }
-
-const StyledCardContainer = styled.div``;
 
 const StyledCardWrap = styled.div`
   display: flex;
