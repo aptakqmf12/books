@@ -11,6 +11,8 @@ interface BookRequest {
   query: string;
   page?: number; // 1~50 *1
   size?: number; // 1~50 *10
+  target?: "title" | "isbn" | "publisher" | "person";
+  sort?: "accuracy" | "recency";
 }
 
 export const getBookData = async (params: BookRequest) => {

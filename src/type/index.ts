@@ -34,3 +34,6 @@ export interface BookResponse {
     total_count: number; // 검색된 문서 수
   };
 }
+
+export type TabType = "search" | "bookmark";
+export type TargetType = "title" | "isbn" | "publisher" | "person";

@@ -20,7 +20,7 @@ export default function Pagination({
           setCurrentPage(selectedItem.selected + 1);
         }}
         pageRangeDisplayed={4}
-        pageCount={totalPageCount / 10}
+        pageCount={Math.ceil(totalPageCount / 10)}
         previousLabel={<ArrowIcon direction="right" />}
         renderOnZeroPageCount={null}
       />
@@ -42,7 +42,6 @@ const StyledPaginationWrap = styled.div`
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      width: 24px;
       height: 24px;
       border: 1px #dadada solid;
       border-radius: 4px;
@@ -52,6 +51,7 @@ const StyledPaginationWrap = styled.div`
         text-align: center;
         width: 100%;
         height: inherit;
+        padding: 0 6px;
 
         font-size: 14px;
         font-weight: 500;
